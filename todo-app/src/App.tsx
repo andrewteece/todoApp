@@ -7,12 +7,21 @@ import { FilterBarMobile } from '@/features/todo/components/FilterBarMobile';
 import { useTodoContext } from '@/features/todo/context/useTodoContext';
 import { TodoProvider } from './features/todo/context/TodoProvider';
 import { motion } from 'framer-motion';
+import Spinner from './components/ui/Spinner';
 
 function AppContent() {
   const {
     state: { todos },
     clearCompleted,
   } = useTodoContext();
+  if (!todos) {
+    return (
+      <div className='flex flex-col items-center gap-2 py-12 text-muted-foreground'>
+        <Spinner size={24} />
+        <span className='text-sm'>Loading...</span>
+      </div>
+    );
+  }
 
   const activeCount = todos.filter((todo) => !todo.completed).length;
 

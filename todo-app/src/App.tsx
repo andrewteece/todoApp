@@ -3,7 +3,7 @@ import { Header } from '@/components/ui/Header';
 import TodoInput from '@/features/todo/components/TodoInput';
 import TodoList from '@/features/todo/components/TodoList';
 import FilterBar from '@/features/todo/components/FilterBar';
-import TodoProvider from '@/features/todo/context/TodoContext';
+import { TodoProvider } from '@/features/todo/context/TodoContext';
 
 export default function App() {
   return (

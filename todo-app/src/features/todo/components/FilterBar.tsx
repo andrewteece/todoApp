@@ -21,10 +21,10 @@ export function FilterBar() {
           <button
             key={f}
             onClick={() => dispatch({ type: 'SET_FILTER', payload: f })}
-            className={`capitalize hover:text-primary transition ${
+            className={`capitalize transition font-bold ${
               filter === f
                 ? 'text-primary'
-                : 'text-light-darkGrayishBlue dark:text-dark-darkGrayishBlue'
+                : 'text-light-darkGrayishBlue dark:text-dark-darkGrayishBlue hover:text-primary'
             }`}
           >
             {f}

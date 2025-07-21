@@ -1,9 +1,24 @@
 import { useTodoContext } from '@/features/todo/context/TodoContext';
 import { TodoItem } from './TodoItem';
+import {
+  DndContext,
+  closestCenter,
+  PointerSensor,
+  useSensor,
+  useSensors,
+} from '@dnd-kit/core';
+import {
+  arrayMove,
+  SortableContext,
+  useSortable,
+  verticalListSortingStrategy,
+} from '@dnd-kit/sortable';
+import { CSS } from '@dnd-kit/utilities';
 
 export function TodoList() {
   const {
     state: { todos, filter },
+    dispatch,
   } = useTodoContext();
 
   const filteredTodos = todos.filter((todo) => {
@@ -11,6 +26,19 @@ export function TodoList() {
     if (filter === 'completed') return todo.completed;
     return true;
   });
+
+  const sensors = useSensors(useSensor(PointerSensor));
+
+  const handleDragEnd = (event: any) => {
+    const { active, over } = event;
+    if (active.id !== over?.id) {
+      const oldIndex = todos.findIndex((t) => t.id === active.id);
+      const newIndex = todos.findIndex((t) => t.id === over?.id);
+
+      const newTodos = arrayMove(todos, oldIndex, newIndex);
+      dispatch({ type: 'REORDER_TODOS', payload: newTodos });
+    }
+  };
 
   if (filteredTodos.length === 0) {
     return (
@@ -21,10 +49,40 @@ export function TodoList() {
   }
 
   return (
-    <ul className='mt-4 space-y-2'>
-      {filteredTodos.map((todo) => (
-        <TodoItem key={todo.id} todo={todo} />
-      ))}
-    </ul>
+    <DndContext
+      sensors={sensors}
+      collisionDetection={closestCenter}
+      onDragEnd={handleDragEnd}
+    >
+      <SortableContext
+        items={filteredTodos.map((todo) => todo.id)}
+        strategy={verticalListSortingStrategy}
+      >
+        <ul className='mt-4 space-y-2'>
+          {filteredTodos.map((todo) => (
+            <SortableTodo key={todo.id} todo={todo} />
+          ))}
+        </ul>
+      </SortableContext>
+    </DndContext>
+  );
+}
+
+// Wrap TodoItem with draggable behavior
+function SortableTodo({ todo }: any) {
+  const { attributes, listeners, setNodeRef, transform, transition } =
+    useSortable({
+      id: todo.id,
+    });
+
+  const style = {
+    transform: CSS.Transform.toString(transform),
+    transition,
+  };
+
+  return (
+    <div ref={setNodeRef} style={style} {...attributes} {...listeners}>
+      <TodoItem todo={todo} />
+    </div>
   );
 }

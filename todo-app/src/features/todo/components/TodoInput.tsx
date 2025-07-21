@@ -20,14 +20,14 @@ export function TodoInput() {
   };
 
   return (
-    <div className='flex items-center gap-2 bg-light-grayishBlue dark:bg-dark-desaturatedBlue p-4 rounded shadow-sm'>
+    <div className='flex items-center gap-3 bg-light-bg dark:bg-dark-desaturatedBlue border border-light-lightGrayishBlue dark:border-dark-veryDarkGrayishBlue1 p-4 rounded-lg'>
       <div className='w-5 h-5 rounded-full border border-light-darkGrayishBlue dark:border-dark-darkGrayishBlue' />
       <Input
         placeholder='Create a new todo...'
-        className='bg-transparent border-none focus:ring-0 focus-visible:ring-0 text-light-veryDarkGrayishBlue dark:text-dark-lightGrayishBlue'
-        value={text}
-        onChange={(e) => setText(e.target.value)}
-        onKeyDown={handleKeyDown}
+        className='bg-transparent border border-light-lightGrayishBlue dark:border-dark-veryDarkGrayishBlue1 
+             rounded-md text-light-veryDarkGrayishBlue dark:text-dark-lightGrayishBlue 
+             placeholder:text-light-darkGrayishBlue dark:placeholder:text-dark-darkGrayishBlue
+             focus:outline-none focus:ring-1 focus:ring-primary'
       />
       <Button
         onClick={handleAddTodo}

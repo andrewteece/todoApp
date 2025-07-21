@@ -6,20 +6,19 @@ export function TodoItem({ todo }: { todo: Todo }) {
   const { dispatch } = useTodoContext();
 
   return (
-    <li
-      className='flex items-center justify-between bg-light-bg dark:bg-dark-desaturatedBlue 
-        p-4 rounded shadow border-b border-light-lightGrayishBlue dark:border-dark-veryDarkGrayishBlue1'
-    >
-      <label className='flex items-center gap-3'>
+    <li className='flex items-center justify-between px-4 py-3 bg-light-bg dark:bg-dark-desaturatedBlue border-b border-light-lightGrayishBlue dark:border-dark-veryDarkGrayishBlue1'>
+      <label className='flex items-center gap-4 w-full cursor-pointer'>
         <input
           type='checkbox'
           checked={todo.completed}
           onChange={() => dispatch({ type: 'TOGGLE_TODO', payload: todo.id })}
-          className='h-5 w-5 accent-primary rounded-full'
+          className='w-5 h-5 shrink-0 accent-primary cursor-pointer rounded-full'
         />
         <span
-          className={`text-light-veryDarkGrayishBlue dark:text-dark-lightGrayishBlue ${
-            todo.completed ? 'line-through opacity-60' : ''
+          className={`flex-1 text-base transition-opacity ${
+            todo.completed
+              ? 'line-through opacity-50 text-light-darkGrayishBlue dark:text-dark-darkGrayishBlue'
+              : 'text-light-veryDarkGrayishBlue dark:text-dark-lightGrayishBlue'
           }`}
         >
           {todo.text}
@@ -29,7 +28,7 @@ export function TodoItem({ todo }: { todo: Todo }) {
       <button
         onClick={() => dispatch({ type: 'DELETE_TODO', payload: todo.id })}
         aria-label='Delete todo'
-        className='text-light-darkGrayishBlue dark:text-dark-darkGrayishBlue hover:text-red-500 transition'
+        className='ml-2 text-light-darkGrayishBlue dark:text-dark-darkGrayishBlue hover:text-red-500 transition'
       >
         <Trash2 className='w-4 h-4' />
       </button>

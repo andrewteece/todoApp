@@ -11,12 +11,14 @@ export function FilterBar() {
   const itemsLeft = todos.filter((t) => !t.completed).length;
 
   return (
-    <div className='mt-4 flex flex-col sm:flex-row sm:items-center sm:justify-between text-sm px-4 py-3 bg-light-bg dark:bg-dark-desaturatedBlue rounded shadow gap-4'>
-      <span className='text-light-darkGrayishBlue dark:text-dark-darkGrayishBlue'>
+    <div className='flex flex-col sm:flex-row sm:items-center sm:justify-between text-sm px-4 py-3 gap-4 bg-light-bg dark:bg-dark-desaturatedBlue rounded shadow'>
+      {/* Items left */}
+      <span className='text-light-darkGrayishBlue dark:text-dark-darkGrayishBlue text-center sm:text-left'>
         {itemsLeft} item{itemsLeft !== 1 ? 's' : ''} left
       </span>
 
-      <div className='flex items-center gap-4 justify-center'>
+      {/* Filter buttons */}
+      <div className='flex flex-wrap items-center gap-4 justify-center'>
         {filters.map((f) => (
           <button
             key={f}
@@ -32,9 +34,10 @@ export function FilterBar() {
         ))}
       </div>
 
+      {/* Clear completed */}
       <button
         onClick={() => dispatch({ type: 'CLEAR_COMPLETED' })}
-        className='text-light-darkGrayishBlue dark:text-dark-darkGrayishBlue hover:text-primary transition'
+        className='text-light-darkGrayishBlue dark:text-dark-darkGrayishBlue hover:text-primary transition text-center'
       >
         Clear Completed
       </button>

@@ -39,7 +39,7 @@ function AppContent() {
       >
         <TodoList />
 
-        {/* Inline footer */}
+        {/* Inline footer: count + clear */}
         <div className='flex items-center justify-between px-5 py-3 text-sm text-light-darkGrayishBlue dark:text-dark-darkGrayishBlue'>
           <span>{activeCount} items left</span>
           <button onClick={clearCompleted} className='hover:text-primary'>
@@ -48,13 +48,15 @@ function AppContent() {
         </div>
       </motion.section>
 
-      {/* Filter Bar for desktop */}
+      {/* Desktop Filter */}
       <div className='hidden sm:flex justify-center'>
-        <FilterBar />
+        <div className='rounded-md shadow-md bg-light-bg dark:bg-dark-desaturatedBlue px-6 py-3'>
+          <FilterBar />
+        </div>
       </div>
 
-      {/* Filter Bar for mobile */}
-      <div className='sm:hidden bg-light-bg dark:bg-dark-desaturatedBlue rounded-md shadow-md px-6 py-3'>
+      {/* Mobile Filter */}
+      <div className='sm:hidden rounded-md shadow-md bg-light-bg dark:bg-dark-desaturatedBlue px-6 py-3'>
         <FilterBarMobile />
       </div>
 

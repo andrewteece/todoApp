@@ -1,37 +1,68 @@
-import type { Todo } from '@/features/todo/context/useTodoReducer';
 import { useTodoContext } from '@/features/todo/context/useTodoContext';
+import type { Todo } from '@/features/todo/types';
+import { motion } from 'framer-motion';
 import { Check } from 'lucide-react';
+import clsx from 'clsx';
 
-export function TodoItem({ todo }: { todo: Todo }) {
+interface TodoItemProps {
+  todo: Todo;
+}
+
+export function TodoItem({ todo }: TodoItemProps) {
   const { dispatch } = useTodoContext();
 
-  return (
-    <li className='flex items-center justify-between px-4 py-3 bg-light-bg dark:bg-dark-desaturatedBlue border-b border-light-lightGrayishBlue dark:border-dark-veryDarkGrayishBlue1'>
-      <label className='flex items-center gap-4 w-full cursor-pointer'>
-        {/* Custom checkbox */}
-        <div
-          onClick={() => dispatch({ type: 'TOGGLE_TODO', payload: todo.id })}
-          className={`w-5 h-5 rounded-full border-2 flex items-center justify-center cursor-pointer transition-all
-            ${
-              todo.completed
-                ? 'bg-gradient-to-br from-[#57ddff] to-[#c058f3] border-none'
-                : 'border-light-darkGrayishBlue dark:border-dark-darkGrayishBlue hover:border-primary'
-            }`}
-        >
-          {todo.completed && <Check className='w-3 h-3 text-white' />}
-        </div>
+  const toggleComplete = () => {
+    dispatch({ type: 'TOGGLE_TODO', payload: { id: todo.id } });
+  };
 
-        {/* Todo text */}
-        <span
-          className={`flex-1 text-base transition-opacity ${
+  const deleteTodo = () => {
+    dispatch({ type: 'DELETE_TODO', payload: { id: todo.id } });
+  };
+
+  return (
+    <motion.li
+      layout
+      initial={{ opacity: 0, y: 8 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -8 }}
+      className='flex items-center justify-between px-5 py-4 border-b border-light-gray dark:border-dark-border text-base bg-inherit'
+    >
+      <div className='flex items-center gap-4'>
+        {/* Custom Checkbox */}
+        <button
+          onClick={toggleComplete}
+          className={clsx(
+            'w-5 h-5 rounded-full flex items-center justify-center border transition-all',
             todo.completed
-              ? 'line-through opacity-50 text-light-darkGrayishBlue dark:text-dark-darkGrayishBlue'
-              : 'text-light-veryDarkGrayishBlue dark:text-dark-lightGrayishBlue'
-          }`}
+              ? 'bg-gradient-to-br from-primary to-accent text-white border-none'
+              : 'border-gray-300 hover:border-primary'
+          )}
+          aria-label={
+            todo.completed ? 'Mark as incomplete' : 'Mark as complete'
+          }
         >
-          {todo.text}
+          {todo.completed && <Check className='w-4 h-4 stroke-[3]' />}
+        </button>
+
+        {/* Todo Text */}
+        <span
+          className={clsx(
+            'text-left break-words transition line-clamp-2',
+            todo.completed ? 'line-through text-muted-foreground' : ''
+          )}
+        >
+          {todo.title}
         </span>
-      </label>
-    </li>
+      </div>
+
+      {/* Delete Button */}
+      <button
+        onClick={deleteTodo}
+        aria-label='Delete todo'
+        className='text-muted-foreground hover:text-destructive transition'
+      >
+        <img src='/images/icon-cross.svg' alt='Delete' className='w-3 h-3' />
+      </button>
+    </motion.li>
   );
 }

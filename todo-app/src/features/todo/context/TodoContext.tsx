@@ -1,15 +1,15 @@
-// src/features/todo/context/TodoContext.tsx
 import { createContext } from 'react';
-import { useTodoReducer } from './useTodoReducer';
-import type { ReactNode } from 'react';
+import type { Dispatch } from 'react';
+import type { State, Action } from './useTodoReducer';
 
-const TodoContext = createContext<ReturnType<typeof useTodoReducer> | null>(
-  null
-);
-
-export { TodoContext };
-
-export function TodoProvider({ children }: { children: ReactNode }) {
-  const value = useTodoReducer();
-  return <TodoContext.Provider value={value}>{children}</TodoContext.Provider>;
+// Context type
+export interface TodoContextType {
+  state: State;
+  dispatch: Dispatch<Action>;
+  clearCompleted: () => void;
 }
+
+// Create context
+export const TodoContext = createContext<TodoContextType | undefined>(
+  undefined
+);

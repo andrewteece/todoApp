@@ -1,5 +1,5 @@
-import { useTodoContext } from '@/features/todo/context/TodoContext';
-import type { Todo } from '@/features/todo/context/TodoContext';
+import { useTodoContext } from '@/features/todo/context/useTodoContext';
+import type { Todo } from '@/features/todo/context/useTodoReducer';
 import { TodoItem } from './TodoItem';
 import type { DragEndEvent } from '@dnd-kit/core';
 import {

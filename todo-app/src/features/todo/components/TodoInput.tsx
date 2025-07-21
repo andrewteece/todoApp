@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useTodoContext } from '@/features/todo/context/TodoContext';
+import { useTodoContext } from '@/features/todo/context/useTodoContext';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 
@@ -15,7 +15,7 @@ export function TodoInput() {
     setText('');
   };
 
-  const handleKeyDown = (e: React.KeyboardEvent) => {
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') handleAddTodo();
   };
 
@@ -28,6 +28,8 @@ export function TodoInput() {
              rounded-md text-light-veryDarkGrayishBlue dark:text-dark-lightGrayishBlue 
              placeholder:text-light-darkGrayishBlue dark:placeholder:text-dark-darkGrayishBlue
              focus:outline-none focus:ring-1 focus:ring-primary'
+        onChange={(e) => setText(e.target.value)}
+        onKeyDown={handleKeyDown}
       />
       <Button
         onClick={handleAddTodo}

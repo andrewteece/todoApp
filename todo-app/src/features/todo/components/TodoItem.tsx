@@ -1,5 +1,5 @@
-import type { Todo } from '@/features/todo/context/TodoContext';
-import { useTodoContext } from '@/features/todo/context/TodoContext';
+import type { Todo } from '@/features/todo/context/useTodoReducer';
+import { useTodoContext } from '@/features/todo/context/useTodoContext';
 import { Trash2 } from 'lucide-react';
 
 export function TodoItem({ todo }: { todo: Todo }) {

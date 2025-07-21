@@ -17,7 +17,8 @@ type Action =
   | { type: 'TOGGLE_TODO'; payload: string }
   | { type: 'DELETE_TODO'; payload: string }
   | { type: 'CLEAR_COMPLETED' }
-  | { type: 'SET_FILTER'; payload: State['filter'] };
+  | { type: 'SET_FILTER'; payload: State['filter'] }
+  | { type: 'REORDER_TODOS'; payload: Todo[] };
 
 const initialState: State = {
   todos: [],
@@ -57,6 +58,11 @@ function todoReducer(state: State, action: Action): State {
       return {
         ...state,
         filter: action.payload,
+      };
+    case 'REORDER_TODOS':
+      return {
+        ...state,
+        todos: action.payload,
       };
     default:
       return state;

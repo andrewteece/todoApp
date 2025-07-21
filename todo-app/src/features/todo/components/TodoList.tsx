@@ -1,5 +1,7 @@
 import { useTodoContext } from '@/features/todo/context/TodoContext';
+import type { Todo } from '@/features/todo/context/TodoContext';
 import { TodoItem } from './TodoItem';
+import type { DragEndEvent } from '@dnd-kit/core';
 import {
   DndContext,
   closestCenter,
@@ -29,7 +31,7 @@ export function TodoList() {
 
   const sensors = useSensors(useSensor(PointerSensor));
 
-  const handleDragEnd = (event: any) => {
+  const handleDragEnd = (event: DragEndEvent) => {
     const { active, over } = event;
     if (active.id !== over?.id) {
       const oldIndex = todos.findIndex((t) => t.id === active.id);
@@ -69,7 +71,7 @@ export function TodoList() {
 }
 
 // Wrap TodoItem with draggable behavior
-function SortableTodo({ todo }: any) {
+function SortableTodo({ todo }: { todo: Todo }) {
   const { attributes, listeners, setNodeRef, transform, transition } =
     useSortable({
       id: todo.id,

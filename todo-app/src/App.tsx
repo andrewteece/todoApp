@@ -1,35 +1,23 @@
-import { useState } from 'react';
-import reactLogo from './assets/react.svg';
-import viteLogo from '/vite.svg';
-import './App.css';
+import { ThemeProvider } from '@/components/ThemeProvider';
+import { Header } from '@/components/ui/Header';
+import TodoInput from '@/features/todo/components/TodoInput';
+import TodoList from '@/features/todo/components/TodoList';
+import FilterBar from '@/features/todo/components/FilterBar';
+import TodoProvider from '@/features/todo/context/TodoContext';
 
-function App() {
-  const [count, setCount] = useState(0);
-
+export default function App() {
   return (
-    <>
-      <div>
-        <a href='https://vite.dev' target='_blank'>
-          <img src={viteLogo} className='logo' alt='Vite logo' />
-        </a>
-        <a href='https://react.dev' target='_blank'>
-          <img src={reactLogo} className='logo react' alt='React logo' />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className='card'>
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className='read-the-docs'>
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    <ThemeProvider defaultTheme='system' storageKey='vite-ui-theme'>
+      <TodoProvider>
+        <div className='min-h-screen bg-light-bg dark:bg-dark-bg font-sans text-base transition-colors duration-300'>
+          <Header />
+          <main className='mx-auto max-w-md sm:max-w-xl px-6 py-10'>
+            <TodoInput />
+            <TodoList />
+            <FilterBar />
+          </main>
+        </div>
+      </TodoProvider>
+    </ThemeProvider>
   );
 }
-
-export default App;

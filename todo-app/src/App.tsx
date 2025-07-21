@@ -9,9 +9,9 @@ export default function App() {
   return (
     <ThemeProvider defaultTheme='system' storageKey='vite-ui-theme'>
       <TodoProvider>
-        <div className='min-h-screen bg-light-bg dark:bg-dark-bg font-sans text-base transition-colors duration-300'>
+        <div className='min-h-screen bg-light-bg dark:bg-dark-bg font-sans text-base transition-colors duration-300 flex flex-col'>
           <Header />
-          <main className='mx-auto max-w-md sm:max-w-xl px-6 py-10'>
+          <main className='flex-1 mx-auto w-full max-w-md sm:max-w-xl px-6 py-12 space-y-6'>
             <TodoInput />
             <TodoList />
             <FilterBar />

@@ -1,7 +1,7 @@
 import { ThemeProvider } from '@/components/ThemeProvider';
 import { Header } from '@/components/ui/Header';
-import TodoInput from '@/features/todo/components/TodoInput';
-import TodoList from '@/features/todo/components/TodoList';
+import { TodoInput } from '@/features/todo/components/TodoInput';
+import { TodoList } from '@/features/todo/components/TodoList';
 import FilterBar from '@/features/todo/components/FilterBar';
 import { TodoProvider } from '@/features/todo/context/TodoContext';
 

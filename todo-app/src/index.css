@@ -1,10 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;700&display=swap');
+
 @import 'tailwindcss';
 
 @import 'tw-animate-css';
 
 @custom-variant dark (&:is(.dark *));
-
-/* @import 'tailwindcss'; */
 
 @theme inline {
   --radius-sm: calc(var(--radius) - 4px);
@@ -77,6 +77,8 @@
   --sidebar-accent-foreground: oklch(0.208 0.042 265.755);
   --sidebar-border: oklch(0.929 0.013 255.508);
   --sidebar-ring: oklch(0.704 0.04 256.788);
+
+  --font-sans: 'Josefin Sans', sans-serif;
 }
 
 .dark {

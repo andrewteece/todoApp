@@ -14,6 +14,7 @@ export type State = {
 export type Action =
   | { type: 'ADD_TODO'; payload: string }
   | { type: 'EDIT_TODO'; payload: { id: string; title: string } }
+  | { type: 'REORDER_TODOS'; payload: Todo[] }
   | { type: 'TOGGLE_TODO'; payload: { id: string } }
   | { type: 'DELETE_TODO'; payload: { id: string } }
   | { type: 'SET_FILTER'; payload: FilterType }
@@ -48,6 +49,12 @@ export function todoReducer(state: State, action: Action): State {
             ? { ...todo, title: action.payload.title }
             : todo
         ),
+      };
+
+    case 'REORDER_TODOS':
+      return {
+        ...state,
+        todos: action.payload,
       };
 
     case 'TOGGLE_TODO':

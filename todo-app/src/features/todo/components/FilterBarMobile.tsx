@@ -1,7 +1,8 @@
-// src/features/todo/components/FilterBarMobile.tsx
 import { useTodoContext } from '@/features/todo/context/useTodoContext';
+import type { FilterType } from '@/features/todo/context/useTodoReducer';
+import clsx from 'clsx';
 
-const filters = ['all', 'active', 'completed'] as const;
+const filters: FilterType[] = ['all', 'active', 'completed'];
 
 export function FilterBarMobile() {
   const {
@@ -10,20 +11,21 @@ export function FilterBarMobile() {
   } = useTodoContext();
 
   return (
-    <div className='mt-6 px-6 py-4 bg-light-bg dark:bg-dark-desaturatedBlue rounded shadow flex justify-center gap-6 sm:hidden'>
-      {filters.map((f) => (
-        <button
-          key={f}
-          onClick={() => dispatch({ type: 'SET_FILTER', payload: f })}
-          className={`capitalize font-bold text-sm transition ${
-            filter === f
-              ? 'text-primary'
-              : 'text-light-darkGrayishBlue dark:text-dark-darkGrayishBlue hover:text-primary'
-          }`}
-        >
-          {f}
-        </button>
-      ))}
+    <div className='flex justify-center sm:hidden p-4 rounded-md shadow-md bg-light-bg dark:bg-dark-desaturatedBlue'>
+      <div className='flex gap-6 text-sm'>
+        {filters.map((f) => (
+          <button
+            key={f}
+            onClick={() => dispatch({ type: 'SET_FILTER', payload: f })}
+            className={clsx(
+              'capitalize hover:text-primary transition',
+              filter === f && 'text-primary font-semibold'
+            )}
+          >
+            {f}
+          </button>
+        ))}
+      </div>
     </div>
   );
 }

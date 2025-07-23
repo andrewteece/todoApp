@@ -5,6 +5,7 @@ import { useTodoContext } from '@/features/todo/context/useTodoContext';
 import { TodoInput } from '@/features/todo/components/TodoInput';
 import { TodoList } from '@/features/todo/components/TodoList';
 import { FilterBar } from '@/features/todo/components/FilterBar';
+import { FilterBarMobile } from '@/features/todo/components/FilterBarMobile';
 
 export function AppContent() {
   const {
@@ -29,8 +30,10 @@ export function AppContent() {
       </div>
 
       {/* Filter controls */}
-      <div className='flex justify-center'>
-        <FilterBar />
+      <div className='hidden sm:flex justify-center'>
+        <div className='rounded-md shadow-md bg-light-bg dark:bg-dark-desaturatedBlue px-6 py-3'>
+          <FilterBar />
+        </div>
       </div>
     </main>
   );

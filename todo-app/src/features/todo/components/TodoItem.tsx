@@ -21,20 +21,12 @@ export function TodoItem({ todo, dragHandleProps }: TodoItemProps) {
     if (isEditing) inputRef.current?.focus();
   }, [isEditing]);
 
-  useEffect(() => {
-    setText(todo.title); // keep text in sync if external change
-  }, [todo.title]);
-
   const toggleComplete = () => {
     dispatch({ type: 'TOGGLE_TODO', payload: todo.id });
   };
 
   const deleteTodo = () => {
     dispatch({ type: 'DELETE_TODO', payload: todo.id });
-  };
-
-  const handleEdit = () => {
-    setIsEditing(true);
   };
 
   const handleEditSubmit = () => {
@@ -55,38 +47,35 @@ export function TodoItem({ todo, dragHandleProps }: TodoItemProps) {
 
   return (
     <motion.li
-      className='flex items-center justify-between px-5 py-4 border-b border-light-gray dark:border-dark-border bg-inherit text-base'
       layout
       initial={{ opacity: 0, y: 8 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -8 }}
-      transition={{ duration: 0.2 }}
+      transition={{ duration: 0.35, ease: [0.4, 0, 0.2, 1] }}
+      className='flex items-center justify-between px-5 py-4 border-b border-light-gray dark:border-dark-border bg-inherit text-base'
     >
-      <div className='flex items-center gap-4 w-full relative'>
-        {/* Drag handle */}
+      <div className='flex items-center gap-4 w-full'>
         <span
           {...dragHandleProps}
-          className='cursor-grab select-none text-muted-foreground'
+          className='cursor-grab select-none text-muted-foreground dark:text-gray-400'
           aria-label='Drag handle'
         >
           ☰
         </span>
 
-        {/* Toggle checkbox */}
         <button
           onClick={toggleComplete}
           className={clsx(
             'w-5 h-5 rounded-full flex items-center justify-center transition border',
             todo.completed
               ? 'bg-gradient-to-br from-primary to-accent text-white border-none'
-              : 'border-gray-300 hover:border-primary'
+              : 'border-gray-300 hover:border-primary dark:border-gray-600'
           )}
           aria-label='Toggle complete'
         >
           {todo.completed && <Check className='w-4 h-4 stroke-[3]' />}
         </button>
 
-        {/* Title or input */}
         <div className='flex-1 min-w-0'>
           {isEditing ? (
             <input
@@ -95,14 +84,16 @@ export function TodoItem({ todo, dragHandleProps }: TodoItemProps) {
               onChange={(e) => setText(e.target.value)}
               onBlur={handleEditSubmit}
               onKeyDown={handleKeyDown}
-              className='w-full bg-transparent focus:outline-none border-b border-muted focus:border-primary text-base placeholder:text-muted-foreground transition py-0.5'
+              className='w-full bg-transparent text-gray-900 dark:text-gray-100 placeholder:text-gray-400 dark:placeholder:text-gray-500 focus:outline-none'
             />
           ) : (
             <span
-              onDoubleClick={handleEdit}
+              onDoubleClick={() => setIsEditing(true)}
               className={clsx(
-                'block break-words transition line-clamp-2 cursor-text',
-                todo.completed && 'line-through text-muted-foreground'
+                'block break-words transition line-clamp-2 cursor-text leading-relaxed',
+                todo.completed
+                  ? 'line-through text-muted-foreground'
+                  : 'text-foreground'
               )}
             >
               {todo.title}
@@ -111,12 +102,11 @@ export function TodoItem({ todo, dragHandleProps }: TodoItemProps) {
         </div>
       </div>
 
-      {/* Delete button */}
       {!isEditing && (
         <button
           onClick={deleteTodo}
           aria-label='Delete todo'
-          className='text-muted-foreground hover:text-destructive transition ml-4'
+          className='text-muted-foreground hover:text-destructive transition ml-4 dark:text-gray-400 dark:hover:text-red-500'
         >
           ✕
         </button>

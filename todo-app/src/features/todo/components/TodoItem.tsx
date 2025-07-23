@@ -4,6 +4,7 @@ import type { Todo } from '@/features/todo/types';
 import { Check } from 'lucide-react';
 import clsx from 'clsx';
 import type { HTMLAttributes } from 'react';
+import { motion } from 'framer-motion';
 
 interface TodoItemProps {
   todo: Todo;
@@ -53,7 +54,14 @@ export function TodoItem({ todo, dragHandleProps }: TodoItemProps) {
   };
 
   return (
-    <li className='flex items-center justify-between px-5 py-4 border-b border-light-gray dark:border-dark-border bg-inherit text-base'>
+    <motion.li
+      className='flex items-center justify-between px-5 py-4 border-b border-light-gray dark:border-dark-border bg-inherit text-base'
+      layout
+      initial={{ opacity: 0, y: 8 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -8 }}
+      transition={{ duration: 0.2 }}
+    >
       <div className='flex items-center gap-4 w-full relative'>
         {/* Drag handle */}
         <span
@@ -113,6 +121,6 @@ export function TodoItem({ todo, dragHandleProps }: TodoItemProps) {
           ✕
         </button>
       )}
-    </li>
+    </motion.li>
   );
 }

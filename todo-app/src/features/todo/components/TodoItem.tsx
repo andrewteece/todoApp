@@ -5,6 +5,8 @@ import { motion } from 'framer-motion';
 import { Check } from 'lucide-react';
 import clsx from 'clsx';
 
+console.log('🧩 THIS IS THE ACTIVE TodoItem FILE');
+
 interface TodoItemProps {
   todo: Todo;
 }
@@ -19,12 +21,21 @@ export function TodoItem({ todo }: TodoItemProps) {
     if (isEditing) inputRef.current?.focus();
   }, [isEditing]);
 
+  useEffect(() => {
+    setText(todo.title);
+  }, [todo.title]);
+
   const toggleComplete = () => {
-    dispatch({ type: 'TOGGLE_TODO', payload: { id: todo.id } });
+    console.log('🟡 dispatching TOGGLE_TODO with:', todo.id);
+    try {
+      dispatch({ type: 'TOGGLE_TODO', payload: todo.id });
+    } catch (err) {
+      console.error('🔥 dispatch failed:', err);
+    }
   };
 
   const deleteTodo = () => {
-    dispatch({ type: 'DELETE_TODO', payload: { id: todo.id } });
+    dispatch({ type: 'DELETE_TODO', payload: todo.id });
   };
 
   const handleEdit = () => {
@@ -46,6 +57,7 @@ export function TodoItem({ todo }: TodoItemProps) {
       setIsEditing(false);
     }
   };
+  console.log('Render:', todo.title, 'Completed:', todo.completed);
 
   return (
     <motion.li
@@ -56,21 +68,16 @@ export function TodoItem({ todo }: TodoItemProps) {
       className='group flex justify-between items-center px-5 py-4 border-b border-light-gray dark:border-dark-border bg-inherit text-base'
     >
       <div className='flex items-center gap-4 w-full relative'>
-        {/* Checkbox */}
         <button
-          onClick={toggleComplete}
-          className={clsx(
-            'w-5 h-5 rounded-full flex-shrink-0 flex items-center justify-center border transition',
-            todo.completed
-              ? 'bg-gradient-to-br from-primary to-accent text-white border-none'
-              : 'border-gray-300 hover:border-primary'
-          )}
-          aria-label='Toggle complete'
+          onClick={() => {
+            console.log('✅ button clicked');
+            dispatch({ type: 'TOGGLE_TODO', payload: todo.id });
+          }}
+          style={{ background: 'yellow', padding: '8px' }}
         >
-          {todo.completed && <Check className='w-4 h-4 stroke-[3]' />}
+          Toggle
         </button>
 
-        {/* Editable or static text */}
         <div className='flex-1 min-w-0'>
           {isEditing ? (
             <input
@@ -89,13 +96,12 @@ export function TodoItem({ todo }: TodoItemProps) {
                 todo.completed && 'line-through text-muted-foreground'
               )}
             >
-              {todo.title}
+              {text}
             </span>
           )}
         </div>
       </div>
 
-      {/* Delete Button */}
       {!isEditing && (
         <button
           onClick={deleteTodo}

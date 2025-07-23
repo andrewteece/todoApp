@@ -1,12 +1,50 @@
-import TestReducer from './TestReducer';
+// import TestReducer from './TestReducer';
+import { TodoProvider } from '@/features/todo/context/TodoProvider';
+import { ThemeProvider } from '@/components/ThemeProvider';
+import { useTodoContext } from '@/features/todo/context/useTodoContext';
+import { TodoInput } from '@/features/todo/components/TodoInput';
+import { TodoList } from '@/features/todo/components/TodoList';
+import { FilterBar } from '@/features/todo/components/FilterBar';
+
+export function AppContent() {
+  const {
+    state: { todos },
+    clearCompleted,
+  } = useTodoContext();
+
+  const activeCount = todos.filter((todo) => !todo.completed).length;
+
+  return (
+    <main className='max-w-xl mx-auto p-4 space-y-6'>
+      <TodoInput />
+
+      <TodoList />
+
+      {/* Inline footer: count + clear */}
+      <div className='flex items-center justify-between text-sm text-muted-foreground'>
+        <span>{activeCount} items left</span>
+        <button onClick={clearCompleted} className='hover:text-primary'>
+          Clear Completed
+        </button>
+      </div>
+
+      {/* Filter controls */}
+      <div className='flex justify-center'>
+        <FilterBar />
+      </div>
+    </main>
+  );
+}
 
 export default function App() {
   return (
-    // <ThemeProvider defaultTheme='system' storageKey='vite-ui-theme'>
-    <div className='min-h-screen p-8'>
-      <TestReducer />
-    </div>
-    // </ThemeProvider>
+    <ThemeProvider defaultTheme='system' storageKey='vite-ui-theme'>
+      <div className='min-h-screen p-8'>
+        <TodoProvider>
+          <AppContent />
+        </TodoProvider>
+      </div>
+    </ThemeProvider>
   );
 }
 // import { ThemeProvider } from '@/components/ThemeProvider';

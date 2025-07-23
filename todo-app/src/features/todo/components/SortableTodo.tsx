@@ -35,14 +35,8 @@ export function SortableTodo({ todo }: SortableTodoProps) {
   };
 
   return (
-    <div
-      ref={setNodeRef}
-      style={style}
-      {...attributes}
-      {...listeners}
-      className='touch-none'
-    >
-      <TodoItem todo={todo} />
+    <div ref={setNodeRef} style={style} className='touch-none'>
+      <TodoItem todo={todo} dragHandleProps={{ ...attributes, ...listeners }} />
     </div>
   );
 }

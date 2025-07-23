@@ -14,6 +14,7 @@ export type State = {
 export type Action =
   | { type: 'ADD_TODO'; payload: Todo }
   | { type: 'TOGGLE_TODO'; payload: string }
+  | { type: 'EDIT_TODO'; payload: { id: string; title: string } }
   | { type: 'DELETE_TODO'; payload: string }
   | { type: 'CLEAR_COMPLETED' }
   | { type: 'SET_FILTER'; payload: FilterType }
@@ -40,6 +41,16 @@ export const todoReducer = (state: State, action: Action): State => {
         todos: state.todos.map((todo) =>
           todo.id === action.payload
             ? { ...todo, completed: !todo.completed }
+            : todo
+        ),
+      };
+
+    case 'EDIT_TODO':
+      return {
+        ...state,
+        todos: state.todos.map((todo) =>
+          todo.id === action.payload.id
+            ? { ...todo, title: action.payload.title }
             : todo
         ),
       };

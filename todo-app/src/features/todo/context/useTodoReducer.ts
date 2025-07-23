@@ -12,80 +12,49 @@ export type State = {
 };
 
 export type Action =
-  | { type: 'ADD_TODO'; payload: string }
-  | { type: 'EDIT_TODO'; payload: { id: string; title: string } }
-  | { type: 'REORDER_TODOS'; payload: Todo[] }
-  | { type: 'TOGGLE_TODO'; payload: { id: string } }
-  | { type: 'DELETE_TODO'; payload: { id: string } }
-  | { type: 'SET_FILTER'; payload: FilterType }
-  | { type: 'CLEAR_COMPLETED' };
+  | { type: 'ADD_TODO'; payload: Todo }
+  | { type: 'TOGGLE_TODO'; payload: string }
+  | { type: 'DELETE_TODO'; payload: string }
+  | { type: 'CLEAR_COMPLETED' }
+  | { type: 'SET_FILTER'; payload: FilterType };
 
-// ✅ Initial State
 export const initialState: State = {
   todos: [],
   filter: 'all',
 };
 
-// ✅ Reducer
-export function todoReducer(state: State, action: Action): State {
+export const todoReducer = (state: State, action: Action): State => {
   switch (action.type) {
-    case 'ADD_TODO': {
-      const newTodo: Todo = {
-        id: crypto.randomUUID(),
-        title: action.payload,
-        completed: false,
-      };
+    case 'ADD_TODO':
       return {
         ...state,
-        todos: [...state.todos, newTodo],
+        todos: [...state.todos, action.payload],
       };
-    }
-
-    case 'EDIT_TODO':
-      return {
-        ...state,
-        todos: state.todos.map((todo) =>
-          todo.id === action.payload.id
-            ? { ...todo, title: action.payload.title }
-            : todo
-        ),
-      };
-
-    case 'REORDER_TODOS':
-      return {
-        ...state,
-        todos: action.payload,
-      };
-
     case 'TOGGLE_TODO':
       return {
         ...state,
         todos: state.todos.map((todo) =>
-          todo.id === action.payload.id
+          todo.id === action.payload
             ? { ...todo, completed: !todo.completed }
             : todo
         ),
       };
-
     case 'DELETE_TODO':
       return {
         ...state,
-        todos: state.todos.filter((todo) => todo.id !== action.payload.id),
+        todos: state.todos.filter((todo) => todo.id !== action.payload),
       };
-
-    case 'SET_FILTER':
-      return {
-        ...state,
-        filter: action.payload,
-      };
-
     case 'CLEAR_COMPLETED':
       return {
         ...state,
         todos: state.todos.filter((todo) => !todo.completed),
       };
-
+    case 'SET_FILTER':
+      return {
+        ...state,
+        filter: action.payload,
+      };
     default:
       return state;
   }
-}
+};

@@ -1,29 +1,11 @@
-import { useTodoContext } from '@/features/todo/context/useTodoContext';
-import type { FilterType } from '@/features/todo/context/useTodoReducer';
-import clsx from 'clsx';
+'use client';
 
-const filters: FilterType[] = ['all', 'active', 'completed'];
+import { FilterControls } from './FilterControls';
 
 export function FilterBar() {
-  const {
-    state: { filter },
-    setFilter,
-  } = useTodoContext();
-
   return (
-    <div className='flex gap-4 text-sm justify-center'>
-      {filters.map((f) => (
-        <button
-          key={f}
-          onClick={() => setFilter(f)}
-          className={clsx(
-            'capitalize hover:text-primary transition',
-            filter === f && 'text-primary font-semibold'
-          )}
-        >
-          {f}
-        </button>
-      ))}
+    <div className='hidden md:block mt-6'>
+      <FilterControls />
     </div>
   );
 }

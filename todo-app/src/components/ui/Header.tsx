@@ -13,10 +13,11 @@ export function Header() {
   useEffect(() => setMounted(true), []);
 
   if (!mounted)
-    return <div className='relative py-16 sm:py-24 bg-light-header' />;
+    return <div className='relative h-[260px] sm:h-[350px] bg-light-header' />;
 
   return (
-    <header className='relative w-full overflow-hidden py-24 sm:py-32'>
+    <header className='relative w-full h-[260px] sm:h-[350px] pt-16 sm:pt-8 overflow-hidden z-0'>
+      {/* Background Image */}
       <AnimatePresence mode='wait'>
         <motion.div
           key={isDark ? 'dark' : 'light'}
@@ -24,15 +25,17 @@ export function Header() {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 1 }}
-          className={`absolute top-0 left-0 w-full h-full bg-cover bg-no-repeat bg-top ${
+          className={`absolute inset-0 h-full w-full bg-cover bg-no-repeat bg-top z-0 pointer-events-none ${
             isDark ? 'bg-header-dark' : 'bg-header-light'
           }`}
         />
       </AnimatePresence>
 
+      {/* Optional overlay gradient */}
       <div className='absolute inset-0 bg-gradient-to-b from-black/30 to-transparent z-[1]' />
 
-      <div className='relative z-10 flex items-center justify-between max-w-xl  px-8 mb-6'>
+      {/* Header content */}
+      <div className='relative z-10 flex items-center justify-between max-w-xl mx-auto px-8 -mt-2'>
         <h1 className='text-3xl tracking-[0.50em] font-bold uppercase text-white'>
           Todo
         </h1>

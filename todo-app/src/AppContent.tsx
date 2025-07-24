@@ -13,40 +13,36 @@ export default function AppContent() {
   const activeCount = todos.filter((todo) => !todo.completed).length;
 
   return (
-    <main className='relative z-10 max-w-xl mx-auto px-4 space-y-6 rounded-lg'>
-      {/* Input Field Overlapping Header */}
-      <div className='relative z-10 -mt-18 sm:-mt-24'>
+    <main className='relative z-[40] max-w-xl mx-auto px-4'>
+      {/* Shift entire block upward */}
+      <div className='-mt-28 space-y-6'>
         <TodoInput />
-      </div>
 
-      {/* Todo List Card */}
-      <div className='bg-card text-card-foreground rounded-md shadow-md overflow-hidden transition-colors duration-500'>
-        <TodoList />
-        <div className='flex justify-between items-center px-5 py-4 text-sm text-muted-foreground'>
-          <span>{activeCount} items left</span>
-          <button
-            onClick={clearCompleted}
-            className='hover:text-primary transition-colors duration-150'
-          >
-            Clear Completed
-          </button>
+        <div className='bg-card text-card-foreground rounded-lg shadow-md overflow-hidden transition-colors duration-500'>
+          <TodoList />
+          <div className='flex justify-between items-center px-5 py-4 text-sm text-muted-foreground'>
+            <span>{activeCount} items left</span>
+            <button
+              onClick={clearCompleted}
+              className='hover:text-primary transition-colors duration-150'
+            >
+              Clear Completed
+            </button>
+          </div>
         </div>
-      </div>
 
-      {/* Desktop Filter Bar */}
-      <div className='hidden md:block'>
-        <FilterBar />
-      </div>
+        <div className='hidden md:block'>
+          <FilterBar />
+        </div>
 
-      {/* Mobile Filter Bar */}
-      <div className='block md:hidden'>
-        <FilterBarMobile />
-      </div>
+        <div className='block md:hidden'>
+          <FilterBarMobile />
+        </div>
 
-      {/* Drag Instruction */}
-      <p className='text-center text-sm text-muted-foreground'>
-        Drag and drop to reorder list
-      </p>
+        <p className='text-center text-sm text-muted-foreground'>
+          Drag and drop to reorder list
+        </p>
+      </div>
     </main>
   );
 }

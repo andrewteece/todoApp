@@ -20,7 +20,7 @@ export function TodoInput() {
 
   return (
     <form onSubmit={handleSubmit}>
-      <motion.div className='bg-white dark:bg-very-dark-desaturated-blue rounded-md shadow-lg px-5 py-4 flex items-center gap-4 transition-colors'>
+      <motion.div className='bg-white dark:bg-very-dark-desaturated-blue rounded-lg shadow-lg px-5 py-4 flex items-center gap-4 transition-colors'>
         {/* Custom Checkbox Placeholder */}
         <div className='w-5 h-5 border border-light-grayish-blue dark:border-dark-grayish-blue rounded-full shrink-0' />
 

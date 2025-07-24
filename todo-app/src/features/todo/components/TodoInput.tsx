@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { useTodoContext } from '@/features/todo/context/useTodoContext';
 import { cn } from '@/lib/utils';
+import { motion } from 'framer-motion';
 
 export function TodoInput() {
   const [text, setText] = useState('');
@@ -19,7 +20,7 @@ export function TodoInput() {
 
   return (
     <form onSubmit={handleSubmit}>
-      <div className='bg-white dark:bg-very-dark-desaturated-blue rounded-md shadow-lg px-5 py-4 flex items-center gap-4 transition-colors'>
+      <motion.div className='bg-white dark:bg-very-dark-desaturated-blue rounded-md shadow-lg px-5 py-4 flex items-center gap-4 transition-colors'>
         {/* Custom Checkbox Placeholder */}
         <div className='w-5 h-5 border border-light-grayish-blue dark:border-dark-grayish-blue rounded-full shrink-0' />
 
@@ -35,7 +36,7 @@ export function TodoInput() {
           value={text}
           onChange={(e) => setText(e.target.value)}
         />
-      </div>
+      </motion.div>
     </form>
   );
 }

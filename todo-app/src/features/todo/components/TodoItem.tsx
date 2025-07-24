@@ -51,7 +51,7 @@ export function TodoItem({ todo, dragHandleProps }: TodoItemProps) {
       initial={{ opacity: 0, y: 8 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -8 }}
-      transition={{ duration: 0.35, ease: [0.4, 0, 0.2, 1] }}
+      transition={{ duration: 0.25, ease: [0.4, 0, 0.2, 1] }}
       className='flex items-center justify-between px-5 py-4 border-b border-light-gray dark:border-dark-border bg-inherit text-base'
     >
       <div className='flex items-center gap-4 w-full'>

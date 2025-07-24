@@ -6,6 +6,7 @@ import type { State, Action } from './useTodoReducer';
 export interface TodoContextType {
   state: State;
   dispatch: Dispatch<Action>;
+  addTodo: (title: string) => void;
   clearCompleted: () => void;
 }
 

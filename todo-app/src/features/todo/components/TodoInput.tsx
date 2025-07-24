@@ -1,40 +1,41 @@
+'use client';
+
 import { useState } from 'react';
 import { useTodoContext } from '@/features/todo/context/useTodoContext';
-import { v4 as uuid } from 'uuid';
+import { cn } from '@/lib/utils';
 
 export function TodoInput() {
-  const { dispatch } = useTodoContext();
   const [text, setText] = useState('');
+  const { addTodo } = useTodoContext();
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     const trimmed = text.trim();
-    if (!trimmed) return;
-
-    dispatch({
-      type: 'ADD_TODO',
-      payload: {
-        id: uuid(),
-        title: trimmed,
-        completed: false,
-      },
-    });
-
-    setText('');
+    if (trimmed) {
+      addTodo(trimmed);
+      setText('');
+    }
   };
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      className='w-full px-5 py-4 border-b border-light-gray dark:border-dark-border bg-inherit'
-    >
-      <input
-        type='text'
-        value={text}
-        onChange={(e) => setText(e.target.value)}
-        placeholder='Create a new todo...'
-        className='w-full bg-transparent text-gray-900 dark:text-gray-100 placeholder:text-gray-400 dark:placeholder:text-gray-500 focus:outline-none'
-      />
+    <form onSubmit={handleSubmit}>
+      <div className='bg-white dark:bg-very-dark-desaturated-blue rounded-md shadow-lg px-5 py-4 flex items-center gap-4 transition-colors'>
+        {/* Custom Checkbox Placeholder */}
+        <div className='w-5 h-5 border border-light-grayish-blue dark:border-dark-grayish-blue rounded-full shrink-0' />
+
+        {/* Input Field */}
+        <input
+          type='text'
+          placeholder='Create a new todo...'
+          className={cn(
+            'flex-1 bg-transparent text-sm outline-none',
+            'text-very-dark-grayish-blue dark:text-light-grayish-blue',
+            'placeholder:text-dark-grayish-blue dark:placeholder:text-dark-grayish-blue'
+          )}
+          value={text}
+          onChange={(e) => setText(e.target.value)}
+        />
+      </div>
     </form>
   );
 }

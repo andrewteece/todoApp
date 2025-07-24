@@ -6,19 +6,14 @@ import { Header } from './components/ui/Header';
 export default function App() {
   return (
     <ThemeProvider defaultTheme='system' storageKey='vite-ui-theme'>
-      <div className='min-h-screen bg-background text-foreground transition-colors'>
+      <div className='min-h-screen w-full bg-background text-foreground'>
         <TodoProvider>
-          <div className='min-h-screen bg-background'>
-            {/* Top Gradient Background Section */}
-            <div className='absolute top-0 left-0 right-0 h-[300px] sm:h-[250px] z-0'>
-              <div className='w-full h-full bg-header-light dark:bg-header-dark bg-cover bg-no-repeat bg-top transition-colors' />
-            </div>
+          {/* Header should not be inside layout constraints */}
+          <Header />
 
-            {/* Content Overlay */}
-            <div className='relative z-10 px-4 pt-12 sm:pt-16 max-w-xl mx-auto space-y-6'>
-              <Header />
-              <AppContent />
-            </div>
+          {/* Now constrain AppContent only */}
+          <div className='relative z-10 max-w-xl mx-auto px-4 space-y-6'>
+            <AppContent />
           </div>
         </TodoProvider>
       </div>

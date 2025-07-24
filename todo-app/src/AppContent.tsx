@@ -13,9 +13,11 @@ export default function AppContent() {
   const activeCount = todos.filter((todo) => !todo.completed).length;
 
   return (
-    <main className='relative z-10 max-w-xl mx-auto px-4 -mt-16 space-y-6'>
+    <main className='relative z-10 max-w-xl mx-auto px-4 space-y-6 rounded-lg'>
       {/* Input Field Overlapping Header */}
-      <TodoInput />
+      <div className='relative z-10 -mt-18 sm:-mt-24'>
+        <TodoInput />
+      </div>
 
       {/* Todo List Card */}
       <div className='bg-card text-card-foreground rounded-md shadow-md overflow-hidden transition-colors duration-500'>

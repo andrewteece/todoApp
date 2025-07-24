@@ -8,6 +8,9 @@ export interface TodoContextType {
   dispatch: Dispatch<Action>;
   addTodo: (title: string) => void;
   clearCompleted: () => void;
+  toggleTodo: (id: string) => void;
+  deleteTodo: (id: string) => void;
+  setFilter: (filter: FilterType) => void;
 }
 
 // Create context

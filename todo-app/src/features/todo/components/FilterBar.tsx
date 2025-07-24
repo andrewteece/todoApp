@@ -7,7 +7,7 @@ const filters: FilterType[] = ['all', 'active', 'completed'];
 export function FilterBar() {
   const {
     state: { filter },
-    dispatch,
+    setFilter,
   } = useTodoContext();
 
   return (
@@ -15,7 +15,7 @@ export function FilterBar() {
       {filters.map((f) => (
         <button
           key={f}
-          onClick={() => dispatch({ type: 'SET_FILTER', payload: f })}
+          onClick={() => setFilter(f)}
           className={clsx(
             'capitalize hover:text-primary transition',
             filter === f && 'text-primary font-semibold'

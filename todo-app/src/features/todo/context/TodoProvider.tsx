@@ -3,7 +3,7 @@
 import { useReducer, useEffect } from 'react';
 import { TodoContext } from '@/features/todo/context/TodoContext';
 import { todoReducer, initialState } from './useTodoReducer';
-import type { Todo } from '@/features/todo/types'; // Adjust if your Todo type is elsewhere
+import type { Todo } from '@/features/todo/types';
 
 export const TodoProvider = ({ children }: { children: React.ReactNode }) => {
   // --- Type guard for validating todo objects ---
@@ -55,13 +55,37 @@ export const TodoProvider = ({ children }: { children: React.ReactNode }) => {
     });
   };
 
-  // --- Clear completed todos ---
+  // --- Toggle completion state of a todo ---
+  const toggleTodo = (id: string) => {
+    dispatch({ type: 'TOGGLE_TODO', payload: id });
+  };
+
+  // --- Delete a todo ---
+  const deleteTodo = (id: string) => {
+    dispatch({ type: 'DELETE_TODO', payload: id });
+  };
+
+  // --- Clear all completed todos ---
   const clearCompleted = () => {
     dispatch({ type: 'CLEAR_COMPLETED' });
   };
 
+  const setFilter = (filter: FilterType) => {
+    dispatch({ type: 'SET_FILTER', payload: filter });
+  };
+
   return (
-    <TodoContext.Provider value={{ state, dispatch, addTodo, clearCompleted }}>
+    <TodoContext.Provider
+      value={{
+        state,
+        dispatch,
+        addTodo,
+        clearCompleted,
+        toggleTodo,
+        deleteTodo,
+        setFilter,
+      }}
+    >
       {children}
     </TodoContext.Provider>
   );

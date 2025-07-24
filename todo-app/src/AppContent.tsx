@@ -18,7 +18,7 @@ export default function AppContent() {
       <TodoInput />
 
       {/* Todo List Card */}
-      <div className='bg-card rounded-md shadow-md overflow-hidden transition-colors duration-500'>
+      <div className='bg-card text-card-foreground rounded-md shadow-md overflow-hidden transition-colors duration-500'>
         <TodoList />
         <div className='flex justify-between items-center px-5 py-4 text-sm text-muted-foreground'>
           <span>{activeCount} items left</span>

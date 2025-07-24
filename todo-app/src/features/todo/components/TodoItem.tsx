@@ -52,12 +52,12 @@ export function TodoItem({ todo, dragHandleProps }: TodoItemProps) {
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -8 }}
       transition={{ duration: 0.25, ease: [0.4, 0, 0.2, 1] }}
-      className='flex items-center justify-between px-5 py-4 border-b border-light-gray dark:border-dark-border bg-inherit text-base'
+      className='flex items-center justify-between px-5 py-4 border-b border-border bg-card text-card-foreground text-base'
     >
       <div className='flex items-center gap-4 w-full'>
         <span
           {...dragHandleProps}
-          className='cursor-grab select-none text-muted-foreground dark:text-gray-400'
+          className='cursor-grab select-none text-muted-foreground'
           aria-label='Drag handle'
         >
           ☰
@@ -69,7 +69,7 @@ export function TodoItem({ todo, dragHandleProps }: TodoItemProps) {
             'w-5 h-5 rounded-full flex items-center justify-center transition border',
             todo.completed
               ? 'bg-gradient-to-br from-primary to-accent text-white border-none'
-              : 'border-gray-300 hover:border-primary dark:border-gray-600'
+              : 'border-border hover:border-primary'
           )}
           aria-label='Toggle complete'
         >
@@ -84,7 +84,7 @@ export function TodoItem({ todo, dragHandleProps }: TodoItemProps) {
               onChange={(e) => setText(e.target.value)}
               onBlur={handleEditSubmit}
               onKeyDown={handleKeyDown}
-              className='w-full bg-transparent text-gray-900 dark:text-gray-100 placeholder:text-gray-400 dark:placeholder:text-gray-500 focus:outline-none'
+              className='w-full bg-transparent text-foreground placeholder:placeholder-muted-foreground focus:outline-none'
             />
           ) : (
             <span
@@ -106,7 +106,7 @@ export function TodoItem({ todo, dragHandleProps }: TodoItemProps) {
         <button
           onClick={deleteTodo}
           aria-label='Delete todo'
-          className='text-muted-foreground hover:text-destructive transition ml-4 dark:text-gray-400 dark:hover:text-red-500'
+          className='text-muted-foreground hover:text-destructive transition ml-4'
         >
           ✕
         </button>
